@@ -7,6 +7,7 @@ select = B,C,D,E,F,W,T4,B9
 docstring-convention = numpy
 per-file-ignores =
     __init__.py:F401
+    tests/test_agrometeo.py:D103
 exclude =
     .git,
     __pycache__,
