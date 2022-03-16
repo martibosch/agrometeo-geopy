@@ -1,4 +1,5 @@
 [tool]
+
 [tool.poetry]
 name = "agrometeo_geopy"
 version = "0.1.0"
@@ -6,8 +7,8 @@ homepage = "https://github.com/martibosch/agrometeo-geopy"
 description = "Pythonic interface to access Agrometeo data."
 authors = ["Martí Bosch <marti.bosch@protonmail.com>"]
 readme = "README.md"
-license =  "GPL-3.0-only"
-classifiers=[
+license = "GPL-3.0-only"
+classifiers = [
     'Development Status :: 2 - Pre-Alpha',
     'Intended Audience :: Developers',
     'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
@@ -17,50 +18,37 @@ classifiers=[
     'Programming Language :: Python :: 3.9',
     'Programming Language :: Python :: 3.10',
 ]
-packages = [
-    { include = "agrometeo" },
-    { include = "tests", format = "sdist" },
-]
+packages = [{ include = "agrometeo" }, { include = "tests", format = "sdist" }]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
-
-black  = { version = "20.8b1", optional = true}
-isort  = { version = "5.6.4", optional = true}
-flake8  = { version = "3.8.4", optional = true}
+black = { version = "20.8b1", optional = true }
+isort = { version = "5.6.4", optional = true }
+flake8 = { version = "3.8.4", optional = true }
 flake8-docstrings = { version = "^1.6.0", optional = true }
-pytest  = { version = "^6.2.5", optional = true}
-pytest-cov  = { version = "2.10.1", optional = true}
-tox  = { version = "^3.20.1", optional = true}
-virtualenv  = { version = "^20.2.2", optional = true}
-pip  = { version = "^20.3.1", optional = true}
-mkdocs  = { version = "^1.2.3", optional = true}
-mkdocs-include-markdown-plugin  = { version = "^3.3.0", optional = true}
-mkdocstrings  = { version = "^0.18.0", optional = true}
-twine  = { version = "^3.3.0", optional = true}
-mkdocs-autorefs = {version = "^0.3.1", optional = true}
-pre-commit = {version = "^2.12.0", optional = true}
-toml = {version = "^0.10.2", optional = true}
-geopandas = { version = "^0.10.2", optional = true}
-osmnx = { version = "^1.1.2", optional = true}
-matplotlib = { version = "^3.5.1", optional = true}
-contextily = { version = "^1.2.0", optional = true}
+pytest = { version = "^6.2.5", optional = true }
+pytest-cov = { version = "2.10.1", optional = true }
+tox = { version = "^3.20.1", optional = true }
+virtualenv = { version = "^20.2.2", optional = true }
+pip = { version = "^20.3.1", optional = true }
+mkdocs = { version = "^1.2.3", optional = true }
+mkdocs-include-markdown-plugin = { version = "^3.3.0", optional = true }
+mkdocstrings = { version = "^0.18.0", optional = true }
+twine = { version = "^3.3.0", optional = true }
+mkdocs-autorefs = { version = "^0.3.1", optional = true }
+pre-commit = { version = "^2.12.0", optional = true }
+toml = { version = "^0.10.2", optional = true }
+geopandas = { version = "^0.10.2", optional = true }
+osmnx = { version = "^1.1.2", optional = true }
+matplotlib = { version = "^3.5.1", optional = true }
+contextily = { version = "^1.2.0", optional = true }
 
 [tool.poetry.extras]
 geo = ["geopandas", "osmnx"]
 plt = ["matplotlib"]
 cx = ["contextily"]
-test = [
-    "pytest",
-    "black",
-    "isort",
-    "flake8",
-    "flake8-docstrings",
-    "pytest-cov"
-    ]
-
+test = ["pytest", "black", "isort", "flake8", "flake8-docstrings", "pytest-cov"]
 dev = ["tox", "pre-commit", "virtualenv", "pip", "twine", "toml"]
-
 doc = [
     "mkdocs",
     "mkdocs-include-markdown-plugin",
@@ -68,7 +56,7 @@ doc = [
     "mkdocstrings",
     "mkdocs-material-extension",
     "mkdocs-autorefs"
-    ]
+]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
