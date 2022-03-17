@@ -42,6 +42,7 @@ geopandas = "^0.10.2"
 matplotlib = "^3.5.1"
 osmnx = { version = "^1.1.2", optional = true }
 contextily = { version = "^1.2.0", optional = true }
+requests = "^2.27.1"
 
 [tool.poetry.extras]
 ox = ["osmnx"]
