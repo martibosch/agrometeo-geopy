@@ -1,11 +1,9 @@
 """Plotting."""
 import logging
 
-try:
-    import matplotlib.pyplot as plt
-    from mpl_toolkits.axes_grid1 import make_axes_locatable
-except ImportError:
-    plt = None
+import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+
 try:
     import contextily as cx
 except ImportError:
@@ -87,15 +85,6 @@ def plot_temperature_map(  # noqa: C901
     ax : `matplotlib.axes.Axes`
         Axes with the plot drawn onto it.
     """
-    if plt is None:
-        logging.warning(
-            """
-The `plot_snapshot` method requires the matplotlib package. You can install it using
-conda or pip. See https://github.com/matplotlib/matplotlib.
-"""
-        )
-        return
-
     # if no column is provided, we plot the "first" column other than "geometry"
     if dt is None:
         dt = ts_gdf.columns.drop("geometry")[0]

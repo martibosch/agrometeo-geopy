@@ -2,18 +2,14 @@
 import abc
 import logging
 
+import geopandas as gpd
 import pandas as pd
+from fiona.errors import DriverError
 
 try:
     import osmnx as ox
 except ImportError:
     ox = None
-
-try:
-    import geopandas as gpd
-    from fiona.errors import DriverError
-except ImportError:
-    gpd = None
 
 from . import settings
 
@@ -21,14 +17,6 @@ __all__ = ["MeteoStationDataset"]
 
 
 def _process_region_arg(region=None, geocode_to_gdf_kws=None):
-    if gpd is None:
-        logging.warning(
-            """
-The `region` argument requires the geopandas package. You can install it using conda or
-pip. See https://github.com/geopandas/geopandas.
-"""
-        )
-        return
     if region is not None:
         if isinstance(region, gpd.GeoSeries):
             # if we have a GeoSeries, convert it to a GeoDataFrame so that we can use
