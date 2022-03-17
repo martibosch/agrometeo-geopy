@@ -2,7 +2,7 @@ name: agrometeo-geopy
 channels:
   - conda-forge
 dependencies:
-  - python=3.8
+  - python=3.9
   - mkdocs=1.2.3
   - pip>=20.1  # pip is needed as dependency
   - pip:
