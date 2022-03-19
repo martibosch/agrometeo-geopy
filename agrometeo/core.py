@@ -165,7 +165,7 @@ class AgrometeoDataset(base.MeteoStationDataset):
 
         return ts_df
 
-    def get_ts_gdf(self, region, start_date, end_date, *, scale=None, measurement=None):
+    def get_ts_gdf(self, start_date, end_date, *, scale=None, measurement=None):
         """
         Get time series geo-data frame.
 
@@ -188,11 +188,12 @@ class AgrometeoDataset(base.MeteoStationDataset):
             (rows), with an additional geometry column with the stations' locations.
         """
         ts_gdf = gpd.GeoDataFrame(
-            self.get_ts_df(),
+            self.get_ts_df(
+                start_date, end_date, scale=scale, measurement=measurement
+            ).T,
             geometry=self.station_gdf["geometry"],
         )
         ts_columns = ts_gdf.columns.drop("geometry")
         ts_gdf = ts_gdf[sorted(ts_columns) + ["geometry"]]
-        ts_gdf.columns = pd.to_datetime() + ["geometry"]
 
         return ts_gdf
