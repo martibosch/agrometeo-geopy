@@ -11,6 +11,8 @@ except ImportError:
 
 from . import settings
 
+__all__ = ["plot_temperature_map"]
+
 
 def plot_temperature_map(  # noqa: C901
     ts_gdf,

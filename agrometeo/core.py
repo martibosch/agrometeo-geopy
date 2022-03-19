@@ -12,7 +12,7 @@ from shapely.geometry import Point
 
 from . import base
 
-all = ["AgrometeoDataset"]
+__all__ = ["AgrometeoDataset"]
 
 # API endpoints
 BASE_URL = "https://www.agrometeo.ch/backend/api"
