@@ -191,7 +191,7 @@ class AgrometeoDataset(base.MeteoStationDataset):
             self.get_ts_df(
                 start_date, end_date, scale=scale, measurement=measurement
             ).T,
-            geometry=self.station_gdf["geometry"],
+            geometry=self.station_gdf.set_index(STATION_ID_COL)["geometry"],
         )
         ts_columns = ts_gdf.columns.drop("geometry")
         ts_gdf = ts_gdf[sorted(ts_columns) + ["geometry"]]

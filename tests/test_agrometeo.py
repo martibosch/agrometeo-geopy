@@ -17,3 +17,4 @@ def test_core():
     assert len(ts_df.columns) == num_stations
     ts_gdf = agm_ds.get_ts_gdf(start_date=start_date, end_date=end_date)
     assert len(ts_gdf) == num_stations
+    assert ts_gdf["geometry"].isna().sum() == 0
