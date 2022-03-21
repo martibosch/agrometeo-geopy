@@ -2,7 +2,7 @@
 
 [tool.poetry]
 name = "agrometeo_geopy"
-version = "0.1.1"
+version = "0.1.2"
 homepage = "https://github.com/martibosch/agrometeo-geopy"
 description = "Pythonic interface to access Agrometeo data."
 authors = ["Martí Bosch <marti.bosch@protonmail.com>"]
