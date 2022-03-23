@@ -14,10 +14,19 @@ nav:
 theme:
     name: readthedocs
     language: en
+extra_css:
+    - css/extra.css
 plugins:
     - include-markdown
     - mkdocs-jupyter
     - mkdocstrings:
+          handlers:
+              python:
+                  rendering:
+                      docstring_section_style: list
+                      show_source: false
+                  selection:
+                      docstring_style: numpy
           watch:
               - agrometeo
     - search:

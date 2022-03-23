@@ -37,6 +37,7 @@ mkdocs-autorefs = { version = "^0.3.1", optional = true }
 mkdocs-include-markdown-plugin = { version = "^3.3.0", optional = true }
 mkdocs-jupyter = { version = "^0.20.1", optional = true }
 mkdocstrings = { version = "^0.18.0", optional = true }
+pytkdocs = { version = "^0.16.1", extras = ["numpy-style"], optional = true }
 twine = { version = "^3.3.0", optional = true }
 pre-commit = { version = "^2.12.0", optional = true }
 toml = { version = "^0.10.2", optional = true }
@@ -45,6 +46,7 @@ matplotlib = "^3.5.1"
 osmnx = { version = "^1.1.2", optional = true }
 contextily = { version = "^1.2.0", optional = true }
 requests = "^2.27.1"
+mkdocstrings-python = "^0.6.6"
 
 [tool.poetry.extras]
 ox = ["osmnx"]
@@ -58,6 +60,7 @@ doc = [
     "mkdocs-include-markdown-plugin",
     "mkdocs-jupyter",
     "mkdocstrings",
+    "pytkdocs[numpy-style]",
 ]
 
 [build-system]

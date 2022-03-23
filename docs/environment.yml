@@ -11,3 +11,5 @@ dependencies:
     - pip:
           - mkdocs-include-markdown-plugin==3.3.0
           - mkdocstrings==0.18.0
+          - mkdocstrings-python==0.6.6
+    - pytkdocs=0.16.1

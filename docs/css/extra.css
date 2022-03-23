@@ -1,0 +1,39 @@
+.doc-heading {
+    font-size: 14.4px;
+    line-height: normal;
+    padding: 6px;
+    position: relative;
+}
+
+.doc-contents.first > .doc-children > .doc-object > .doc-heading {
+    background: #e7f2fa;
+    color: #2980B9;
+    border-top: solid 3px #6ab0de;
+}
+
+.doc-contents:not(.first) > .doc-children > .doc-object > .doc-heading {
+    border: none;
+    border-left: solid 3px #ccc;
+    background: #f0f0f0;
+    color: #555;
+}
+
+.doc-class > .doc-contents {
+    margin-left: 24px;
+}
+
+.doc-heading code {
+    background-color: transparent;
+    border: none;
+    color: inherit;    
+    font-size: inherit;
+    padding: 0;    
+}
+
+.doc-contents code {
+    white-space: normal;
+}
+
+li.field-body > p {
+    display: inline;
+}

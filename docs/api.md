@@ -1,1 +1,3 @@
-::: agrometeo
+::: agrometeo.core
+
+::: agrometeo.plotting
