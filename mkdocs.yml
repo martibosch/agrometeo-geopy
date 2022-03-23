@@ -1,25 +1,27 @@
+---
 site_name: Agrometeo GeoPy
 # site_url: http://www.jieyu.ai
 edit_uri: edit/main/docs
 repo_url: https://github.com/martibosch/agrometeo-geopy
 repo_name: agrometeo-geopy
 nav:
-  - Home: index.md
-  - Installation: installation.md
-  - Usage: usage.md
-  - API: api.md
-  - Contributing: contributing.md
-  - History: history.md
+    - Home: index.md
+    - Installation: installation.md
+    - Usage: usage.ipynb
+    - API: api.md
+    - Contributing: contributing.md
+    - History: history.md
 theme:
-  name: readthedocs
-  language: en
+    name: readthedocs
+    language: en
 plugins:
-  - include-markdown
-  - search:
-      lang: en
-  - mkdocstrings:
-      watch:
-        - agrometeo
+    - include-markdown
+    - mkdocs-jupyter
+    - mkdocstrings:
+          watch:
+              - agrometeo
+    - search:
+          lang: en
   # to enable disqus, uncomment the following and put your disqus id below
   # disqus: disqus_id
 # uncomment the following and put your google tracking id below to enable GA
