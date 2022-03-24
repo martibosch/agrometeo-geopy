@@ -18,7 +18,7 @@ extra_css:
     - css/extra.css
 plugins:
     - include-markdown
-    - mkdocs-jupyter
+    - mknotebooks
     - mkdocstrings:
           handlers:
               python:
