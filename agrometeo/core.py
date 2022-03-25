@@ -60,6 +60,11 @@ class AgrometeoDataset(base.MeteoStationDataset):
             * A filename or URL, a file-like object opened in binary ('rb') mode, or a
               Path object that will be passed to `geopandas.read_file`.
         """
+        # ACHTUNG: need to define the CRS before calling the parent's init
+        if crs is None:
+            crs = LONLAT_CRS
+        self.crs = crs
+
         super().__init__(
             region=region,
             station_id_name=station_id_name,
@@ -67,13 +72,14 @@ class AgrometeoDataset(base.MeteoStationDataset):
             geocode_to_gdf_kws=geocode_to_gdf_kws,
         )
 
-        if crs is None:
-            crs = LONLAT_CRS
-        self.crs = crs
-
         if sjoin_kws is None:
             sjoin_kws = {}
         self.sjoin_kws = sjoin_kws
+
+    @property
+    def CRS(self):  # pylint: disable=invalid-name
+        """CRS of the data source."""
+        return self.crs
 
     @property
     def station_gdf(self):
