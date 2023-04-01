@@ -203,4 +203,4 @@ See [the user guide](https://agrometeo-geopy.readthedocs.io/en/latest/usage) for
 
 ## Acknowledgements
 
-* This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and the [zillionare/cookiecutter-pypackage](https://github.com/zillionare/cookiecutter-pypackage) project template.
+- This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and the [zillionare/cookiecutter-pypackage](https://github.com/zillionare/cookiecutter-pypackage) project template.

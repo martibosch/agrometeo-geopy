@@ -25,9 +25,9 @@
 .doc-heading code {
     background-color: transparent;
     border: none;
-    color: inherit;    
+    color: inherit;
     font-size: inherit;
-    padding: 0;    
+    padding: 0;
 }
 
 .doc-contents code {

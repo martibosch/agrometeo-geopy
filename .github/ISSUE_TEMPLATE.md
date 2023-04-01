@@ -1,6 +1,6 @@
-* agrometeo-geopy version:
-* Python version:
-* Operating System:
+- agrometeo-geopy version:
+- Python version:
+- Operating System:
 
 ### Description
 
