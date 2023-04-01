@@ -1,3 +1,2 @@
-{%
-include-markdown "../HISTORY.md"
-%}
+```{include} ../HISTORY.md
+```
