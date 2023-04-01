@@ -166,7 +166,10 @@ class AgrometeoDataset(base.MeteoStationDataset):
         ts_df = pd.json_normalize(response.json()["data"]).set_index("date")
         ts_df.index = pd.to_datetime(ts_df.index)
         ts_df.index.name = self.time_name
-        ts_df.columns = self.station_gdf[STATION_ID_COL]
+        # ts_df.columns = self.station_gdf[STATION_ID_COL]
+        ts_df.columns = ts_df.columns.str.replace(f"_1_{measurement}", "").astype(
+            self.station_gdf[STATION_ID_COL].dtype
+        )
         ts_df = ts_df.apply(pd.to_numeric, axis=1)
 
         return ts_df
@@ -194,11 +197,11 @@ class AgrometeoDataset(base.MeteoStationDataset):
             (rows), with an additional geometry column with the stations' locations.
         """
         ts_gdf = gpd.GeoDataFrame(
-            self.get_ts_df(
-                start_date, end_date, scale=scale, measurement=measurement
-            ).T,
-            geometry=self.station_gdf.set_index(STATION_ID_COL)["geometry"],
+            self.get_ts_df(start_date, end_date, scale=scale, measurement=measurement).T
         )
+        ts_gdf["geometry"] = self.station_gdf.set_index(STATION_ID_COL)[
+            "geometry"
+        ].values
         ts_columns = ts_gdf.columns.drop("geometry")
         ts_gdf = ts_gdf[sorted(ts_columns) + ["geometry"]]
 
