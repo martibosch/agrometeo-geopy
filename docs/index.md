@@ -4,7 +4,6 @@ hidden:
 maxdepth: 1
 ---
 
-installation
 usage
 api
 contributing

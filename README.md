@@ -10,6 +10,22 @@
 
 Pythonic interface to access [agrometeo.ch](https://agrometeo.ch) data.
 
+## Installation
+
+The agrometeo-geopy library requires [geopandas](https://geopandas.org/), which can be installed using conda/mamba as in:
+
+```shell
+conda install -c conda-forge geopandas
+```
+
+Then, agrometeo-geopy can be installed using pip:
+
+```shell
+pip install agrometeo-geopy
+```
+
+## Overview
+
 ```python
 import agrometeo as agm
 
