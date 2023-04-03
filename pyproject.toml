@@ -86,3 +86,6 @@ known-first-party = ["agrometeo"]
 ruff = [
     "--ignore=D,I"
 ]
+
+[tool.poetry_bumpversion.file."agrometeo/__init__.py"]
+[tool.poetry_bumpversion.file."docs/conf.py"]
