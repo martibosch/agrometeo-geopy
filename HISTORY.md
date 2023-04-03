@@ -1,5 +1,9 @@
 # History
 
+## 0.1.3 (2023-04-03)
+
+- fix: set columns based on str replace
+
 ## 0.1.2 (2022-03-21)
 
 - fix: missing default plot settings; added plotting tests

@@ -1,7 +1,7 @@
 project = "agrometeo-geopy"
 author = "Martí Bosch"
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 version = __version__
 release = __version__
 
