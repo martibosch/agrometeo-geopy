@@ -171,7 +171,7 @@ class AgrometeoDataset(base.MeteoStationDataset):
         )
         ts_df = ts_df.apply(pd.to_numeric, axis=1)
 
-        return ts_df
+        return ts_df.sort_index()
 
     def get_ts_gdf(self, start_date, end_date, *, scale=None, measurement=None):
         """
