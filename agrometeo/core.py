@@ -115,7 +115,6 @@ class AgrometeoDataset(base.MeteoStationDataset):
             return self._station_gdf
 
     def _get_region_data(self, start_date, end_date, *, scale=None, measurement=None):
-
         if isinstance(start_date, datetime.datetime):
             start_date = start_date.strftime(API_DT_FMT)
         if isinstance(end_date, datetime.datetime):
