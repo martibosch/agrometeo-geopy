@@ -14,11 +14,19 @@ def test_agrometeo():
     assert num_stations >= 1
     start_date = "2022-03-22"
     end_date = "2022-03-23"
-    ts_df = agm_ds.get_ts_df(start_date=start_date, end_date=end_date)
-    assert len(ts_df.columns) == num_stations
-    ts_gdf = agm_ds.get_ts_gdf(start_date=start_date, end_date=end_date)
-    assert len(ts_gdf) == num_stations
-    assert ts_gdf["geometry"].isna().sum() == 0
+    # test that variable can be an ECV following the meteostations-geopy nomenclature, a
+    # variable name following the agrometeo nomenclature and a variable code (as str or
+    # int) following the agrometeo nomenclature
+    for variable in ["temperature", "Precipitation", "1", 1]:
+        ts_df = agm_ds.get_ts_df(
+            variable=variable, start_date=start_date, end_date=end_date
+        )
+        assert len(ts_df.columns) == num_stations
+        ts_gdf = agm_ds.get_ts_gdf(
+            variable=variable, start_date=start_date, end_date=end_date
+        )
+        assert len(ts_gdf) == num_stations
+        assert ts_gdf["geometry"].isna().sum() == 0
 
     # test plotting
     # use `add_basemap=False` to avoid having to mock contextily's requests
