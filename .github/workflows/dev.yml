@@ -1,22 +1,14 @@
-# This is a basic workflow to help you get started with Actions
-
 name: dev workflow
 
-# Controls when the action will run.
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ main,release ]
+    branches: [main]
   pull_request:
-    branches: [ main,release ]
+    branches:
+      - "*"
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   test:
-    # The type of runner that the job will run on
     strategy:
       matrix:
         python-versions: ["3.8", "3.9", "3.10", "3.11"]
@@ -26,9 +18,7 @@ jobs:
             miniforge-version: 4.11.0-4
     runs-on: ${{ matrix.os }}
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
       - name: setup conda environment with mambaforge
@@ -52,7 +42,6 @@ jobs:
         run: ls -l .
 
   publish_dev_build:
-    # if test failed, we should not publish
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -86,6 +75,7 @@ jobs:
 
       - name: publish to test pypi
         uses: pypa/gh-action-pypi-publish@master
+        if: github.event_name == 'push' # This step will only run on pushes
         with:
           user: __token__
           password: ${{ secrets.TEST_PYPI_API_TOKEN}}
