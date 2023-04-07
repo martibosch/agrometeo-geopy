@@ -1,3 +1,9 @@
-::: agrometeo.core
+# API
 
-::: agrometeo.plotting
+```{eval-rst}
+.. automodule:: agrometeo.core
+   :members:
+
+.. automodule:: agrometeo.plotting
+   :members:
+```
