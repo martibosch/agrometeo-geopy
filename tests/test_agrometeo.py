@@ -10,7 +10,7 @@ def test_agrometeo():
     # test core functions
     agm_ds = agm.AgrometeoDataset(region="Pully, Switzerland")
     assert agm_ds.CRS is not None
-    num_stations = len(agm_ds.station_gdf)
+    num_stations = len(agm_ds.stations_gdf)
     assert num_stations >= 1
     start_date = "2022-03-22"
     end_date = "2022-03-23"

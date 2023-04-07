@@ -1,6 +1,6 @@
 """Settings."""
 # core
-STATION_ID_NAME = "station_id"
+STATIONS_ID_NAME = "station_id"
 TIME_NAME = "time"
 
 # plotting
@@ -14,7 +14,7 @@ PLOT_TITLE = True
 PLOT_ADD_BASEMAP = True
 
 # agrometeo specific
-DEFAULT_STATION_ID_COL = "name"
+DEFAULT_STATIONS_ID_COL = "name"
 # https://public.wmo.int/en/programmes/global-climate-observing-system/essential-climate-variables
 ECVS = [
     "precipitation",

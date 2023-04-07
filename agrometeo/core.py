@@ -44,7 +44,7 @@ class AgrometeoDataset(base.MeteoStationDataset):
         self,
         *,
         region=None,
-        station_id_name=None,
+        stations_id_name=None,
         time_name=None,
         crs=None,
         geocode_to_gdf_kws=None,
@@ -73,7 +73,7 @@ class AgrometeoDataset(base.MeteoStationDataset):
 
         super().__init__(
             region=region,
-            station_id_name=station_id_name,
+            stations_id_name=stations_id_name,
             time_name=time_name,
             geocode_to_gdf_kws=geocode_to_gdf_kws,
         )
@@ -88,22 +88,22 @@ class AgrometeoDataset(base.MeteoStationDataset):
         return self.crs
 
     @property
-    def station_gdf(self):
+    def stations_gdf(self):
         """Station geo-data frame."""
         try:
-            return self._station_gdf
+            return self._stations_gdf
         except AttributeError:
             geom_cols = GEOM_COL_DICT[self.crs]
             response = requests.get(STATIONS_API_ENDPOINT)
-            station_df = pd.json_normalize(response.json()["data"])
+            stations_df = pd.json_normalize(response.json()["data"])
             # it is fine to filter out this ShapelyDeprecationWarning, see
             # https://shapely.readthedocs.io/en/latest/migration.html
             # #creating-numpy-arrays-of-geometry-objects
             with warnings.catch_warnings():
                 warnings.filterwarnings("ignore", category=ShapelyDeprecationWarning)
-                station_gdf = gpd.GeoDataFrame(
-                    station_df.drop(geom_cols, axis=1),
-                    geometry=station_df[geom_cols]
+                stations_gdf = gpd.GeoDataFrame(
+                    stations_df.drop(geom_cols, axis=1),
+                    geometry=stations_df[geom_cols]
                     .astype(np.float64)
                     .apply(lambda xy_ser: Point(xy_ser[0], xy_ser[1]), axis=1),
                     crs=self.crs,
@@ -111,14 +111,14 @@ class AgrometeoDataset(base.MeteoStationDataset):
 
             _sjoin_kws = self.sjoin_kws.copy()
             predicate = _sjoin_kws.pop("predicate", SJOIN_PREDICATE)
-            station_gdf = station_gdf.sjoin(
-                self.region.to_crs(station_gdf.crs), predicate=predicate, **_sjoin_kws
+            stations_gdf = stations_gdf.sjoin(
+                self.region.to_crs(stations_gdf.crs), predicate=predicate, **_sjoin_kws
             )
-            # station_gdf.index.name = self.station_id_name
+            # stations_gdf.index.name = self.stations_id_name
 
-            self._station_gdf = station_gdf
+            self._stations_gdf = stations_gdf
 
-            return self._station_gdf
+            return self._stations_gdf
 
     @property
     def variables_df(self):
@@ -142,14 +142,14 @@ class AgrometeoDataset(base.MeteoStationDataset):
 
     def _get_region_data(self, variable_code, start_date, end_date, scale, measurement):
         # use a variable for the station ids just to keep the line below shorter
-        _station_ids = self.station_gdf[STATIONS_API_ID_COL].astype(str)
+        _stations_ids = self.stations_gdf[STATIONS_API_ID_COL].astype(str)
         request_url = f"{METEO_DATA_API_ENDPOINT}?" + "&".join(
             [
                 f"from={start_date}",
                 f"to={end_date}",
                 f"scale={scale}",
                 f"sensors={variable_code}%3A{measurement}",
-                f"stations={'%2C'.join(_station_ids)}",
+                f"stations={'%2C'.join(_stations_ids)}",
             ]
         )
 
@@ -163,7 +163,7 @@ class AgrometeoDataset(base.MeteoStationDataset):
         *,
         scale=None,
         measurement=None,
-        station_id_col=None,
+        stations_id_col=None,
     ):
         """
         Get time series data frame.
@@ -184,10 +184,10 @@ class AgrometeoDataset(base.MeteoStationDataset):
         measurement : {"min", "avg", "max"}, default "avg"
             Whether the measurement values correspond to the minimum, average or maximum
             value for the required temporal scale. Ignored if `scale` is None.
-        station_id_col : str, optional
+        stations_id_col : str, optional
             Column of `stations_gdf` that will be used in the returned data frame to
             identify the stations. If None, the value from
-            `settings.DEFAULT_STATION_ID_COL` will be used.
+            `settings.DEFAULT_STATIONS_ID_COL` will be used.
 
         Returns
         -------
@@ -228,9 +228,9 @@ class AgrometeoDataset(base.MeteoStationDataset):
             scale = SCALE
         if measurement is None:
             measurement = MEASUREMENT
-        # process the station_id_col arg
-        if station_id_col is None:
-            station_id_col = settings.DEFAULT_STATION_ID_COL
+        # process the stations_id_col arg
+        if stations_id_col is None:
+            stations_id_col = settings.DEFAULT_STATIONS_ID_COL
 
         # query the API
         response = self._get_region_data(
@@ -241,16 +241,16 @@ class AgrometeoDataset(base.MeteoStationDataset):
         ts_df = pd.json_normalize(response.json()["data"]).set_index("date")
         ts_df.index = pd.to_datetime(ts_df.index)
         ts_df.index.name = self.time_name
-        # ts_df.columns = self.station_gdf[STATION_ID_COL]
+        # ts_df.columns = self.stations_gdf[STATIONS_ID_COL]
         # ACHTUNG: note that agrometeo returns the data indexed by keys of the form
         # "{station_id}_{variable_code}_{measurement}", so to properly set the columns
         # as the desired station identifier (e.g., "id" or "name") we need to first get
-        # the ids and then get (loc) the station data from the station_gdf.
-        ts_df.columns = self.station_gdf.set_index(STATIONS_API_ID_COL).loc[
+        # the ids and then get (loc) the station data from the stations_gdf.
+        ts_df.columns = self.stations_gdf.set_index(STATIONS_API_ID_COL).loc[
             ts_df.columns.str.replace(f"_{variable_code}_{measurement}", "").astype(
-                self.station_gdf[STATIONS_API_ID_COL].dtype
+                self.stations_gdf[STATIONS_API_ID_COL].dtype
             )
-        ][station_id_col]
+        ][stations_id_col]
         ts_df = ts_df.apply(pd.to_numeric, axis=1)
 
         return ts_df.sort_index()
@@ -263,7 +263,7 @@ class AgrometeoDataset(base.MeteoStationDataset):
         *,
         scale=None,
         measurement=None,
-        station_id_col=None,
+        stations_id_col=None,
     ):
         """
         Get time series geo-data frame.
@@ -284,10 +284,10 @@ class AgrometeoDataset(base.MeteoStationDataset):
         measurement : {"min", "avg", "max"}, default "avg"
             Whether the measurement values correspond to the minimum, average or maximum
             value for the required temporal scale. Ignored if `scale` is None.
-        station_id_col : str, optional
+        stations_id_col : str, optional
             Column of `stations_gdf` that will be used in the returned data frame to
             identify the stations. If None, the value from
-            `settings.DEFAULT_STATION_ID_COL` is used.
+            `settings.DEFAULT_STATIONS_ID_COL` is used.
 
         Returns
         -------
@@ -302,11 +302,11 @@ class AgrometeoDataset(base.MeteoStationDataset):
                 end_date,
                 scale=scale,
                 measurement=measurement,
-                station_id_col=station_id_col,
+                stations_id_col=stations_id_col,
             ).T
         )
-        # get the geometry from station_gdf
-        ts_gdf["geometry"] = self.station_gdf.set_index(ts_gdf.index.name).loc[
+        # get the geometry from stations_gdf
+        ts_gdf["geometry"] = self.stations_gdf.set_index(ts_gdf.index.name).loc[
             ts_gdf.index
         ]["geometry"]
         # sort the timestamp columns

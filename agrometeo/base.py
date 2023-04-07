@@ -62,7 +62,7 @@ class MeteoStationDataset(metaclass=abc.ABCMeta):
         *,
         region=None,
         crs=None,
-        station_id_name=None,
+        stations_id_name=None,
         time_name=None,
         geocode_to_gdf_kws=None,
     ):
@@ -85,9 +85,9 @@ class MeteoStationDataset(metaclass=abc.ABCMeta):
         self.region = _process_region_arg(
             region=region, geocode_to_gdf_kws=geocode_to_gdf_kws
         ).to_crs(self.CRS)
-        if station_id_name is None:
-            station_id_name = settings.STATION_ID_NAME
-        self.station_id_name = station_id_name
+        if stations_id_name is None:
+            stations_id_name = settings.STATIONS_ID_NAME
+        self.stations_id_name = stations_id_name
         if time_name is None:
             time_name = settings.TIME_NAME
         self.time_name = time_name
@@ -99,8 +99,8 @@ class MeteoStationDataset(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractproperty
-    def station_gdf(self):
-        """Station geo-data frame."""
+    def stations_gdf(self):
+        """Geo-data frame with stations data."""
         pass
 
     @abc.abstractmethod
