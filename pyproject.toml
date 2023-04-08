@@ -33,7 +33,7 @@ Repository = "https://github.com/martibosch/agrometeo-geopy"
 [project.optional-dependencies]
 ox = ["osmnx"]
 cx = ["contextily"]
-test = ["black", "pytest", "pytest-cov", "ruff"]
+test = ["black", "coverage[toml]", "pytest", "pytest-cov", "ruff"]
 dev = ["build", "bump2version", "pre-commit", "pip", "toml", "tox", "twine"]
 doc = ["myst-parser", "nbsphinx", "sphinx"]
 
@@ -72,3 +72,17 @@ known-first-party = ["agrometeo"]
 ruff = [
     "--ignore=D,I"
 ]
+
+[tool.coverage.run]
+source = ["agrometeo"]
+
+[report]
+exclude_lines = [
+    "if self.debug:",
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "except ModuleNotFoundError",
+    "except ImportError",
+]
+ignore_errors = true
+omit = ["tests/*", "docs/conf.py"]
