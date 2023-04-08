@@ -30,11 +30,10 @@ jobs:
           miniforge-version: ${{ matrix.miniforge-version }}
 
       - name: install dependencies
-        run: pip install poetry tox tox-gh-actions
+        run: pip install tox tox-gh-actions
 
       - name: test with tox
-        run:
-          tox
+        run: tox
         env:
           CONDA_EXE: mamba
 
@@ -53,11 +52,10 @@ jobs:
       - name: install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install poetry tox tox-gh-actions
+          pip install build tox tox-gh-actions twine
 
       - name: test with tox
-        run:
-          tox
+        run: tox
 
       - name: list files
         run: ls -l .
@@ -69,9 +67,8 @@ jobs:
 
       - name: build wheels and source tarball
         run: |
-          poetry version $(poetry version --short)-dev.$GITHUB_RUN_NUMBER
-          poetry version --short
-          poetry build
+          python -m build
+          twine check --strict dist/*
 
       - name: publish to test pypi
         uses: pypa/gh-action-pypi-publish@master
