@@ -139,14 +139,6 @@ def plot_temperature_map(  # noqa: C901
     if add_basemap is None:
         add_basemap = settings.PLOT_ADD_BASEMAP
     if add_basemap:
-        if cx is None:
-            logging.warning(
-                """
-The `add_basemap=True` option requires the contextily package. You can install it using
-conda or pip. See https://github.com/geopandas/contextily.
-"""
-            )
-
         # add_basemap arguments
         if add_basemap_kws is None:
             _add_basemap_kws = {}
@@ -155,12 +147,20 @@ conda or pip. See https://github.com/geopandas/contextily.
         # _add_basemap_kws = {key: add_basemap_kws[key] for key in add_basemap_kws}
         if attribution is None:
             attribution = _add_basemap_kws.pop("attribution", settings.PLOT_ATTRIBUTION)
-        # add basemap
-        cx.add_basemap(
-            ax=ax,
-            crs=ts_gdf.crs,
-            attribution=attribution,
-            **_add_basemap_kws,
-        )
+        if cx is None:
+            logging.warning(
+                """
+The `add_basemap=True` option requires the contextily package. You can install it using
+conda or pip. See https://github.com/geopandas/contextily.
+"""
+            )
+        else:
+            # add basemap
+            cx.add_basemap(
+                ax=ax,
+                crs=ts_gdf.crs,
+                attribution=attribution,
+                **_add_basemap_kws,
+            )
 
     return ax
