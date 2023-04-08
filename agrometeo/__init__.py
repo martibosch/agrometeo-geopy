@@ -2,7 +2,7 @@
 
 __author__ = """Martí Bosch"""
 __email__ = "marti.bosch@protonmail.com"
-__version__ = "0.1.3"
+__version__ = "0.2.0"
 
 from .core import *
 from .plotting import *
