@@ -34,6 +34,8 @@ def test_agrometeo():
     assert len(ax.get_title()) > 0
     ax = agm.plot_temperature_map(ts_gdf, title=False, add_basemap=False)
     assert len(ax.get_title()) == 0
+    ax = agm.plot_temperature_map(ts_gdf, title="some-title", add_basemap=False)
+    assert len(ax.get_title()) > 0
     assert len(ax.collections[0].get_array()) == num_stations
     ts_columns = ts_gdf.columns.drop("geometry")
     axes = [
@@ -47,3 +49,6 @@ def test_agrometeo():
     assert not np.array_equal(
         axes[0].collections[0].get_array(), axes[1].collections[0].get_array()
     )
+    # test other args
+    agm.plot_temperature_map(ts_gdf, add_basemap=False, plot_kws={"cmap": "Spectral"})
+    agm.plot_temperature_map(ts_gdf, add_basemap=False, append_axes_kws={"pad": 0.4})
