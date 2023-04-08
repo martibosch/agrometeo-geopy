@@ -216,7 +216,7 @@ ts_df
     <p>576 rows × 10 columns</p>
 </div>
 
-See [the user guide](https://agrometeo-geopy.readthedocs.io/en/latest/usage) for more details.
+See [the user guide](https://agrometeo-geopy.readthedocs.io/en/latest/usage.html) for more details.
 
 ## Acknowledgements
 
