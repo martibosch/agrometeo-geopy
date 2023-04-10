@@ -76,7 +76,7 @@ ruff = [
 [tool.coverage.run]
 source = ["agrometeo"]
 
-[report]
+[tool.coverage.report]
 exclude_lines = [
     "if self.debug:",
     "pragma: no cover",
