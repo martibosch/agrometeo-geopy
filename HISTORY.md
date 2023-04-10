@@ -1,5 +1,21 @@
 # History
 
+## 0.2.0 (2023-04-10)
+
+### Feat
+
+- bump version to 0.2.0
+- support multiple vars; station_id_col as setting
+- sort_index in ts_df
+
+### Fix
+
+- avoid AttributeError when no contextily and add_basemap is True
+
+### Refactor
+
+- rename station -> stations in constants for consistency
+
 ## 0.1.3 (2023-04-03)
 
 - fix: set columns based on str replace
