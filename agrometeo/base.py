@@ -1,4 +1,5 @@
 """Base abstract classes for meteo station datasets."""
+
 import abc
 import logging
 
