@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 """Tests for `agrometeo` package."""
+
 # pylint: disable=redefined-outer-name
 import numpy as np
 
