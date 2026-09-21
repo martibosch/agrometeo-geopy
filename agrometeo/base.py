@@ -1,4 +1,5 @@
 """Base abstract classes for meteo station datasets."""
+
 import abc
 import logging
 
@@ -29,12 +30,10 @@ def _process_region_arg(region=None, geocode_to_gdf_kws=None):
                 region = gpd.read_file(region)
             except DriverError:
                 if ox is None:
-                    logging.warning(
-                        """
+                    logging.warning("""
 Using a Nominatim query as `region` argument requires the osmnx package. You can install
 it using conda or pip. See https://github.com/geopandas/geopandas.
-"""
-                    )
+""")
                     return
 
                 if geocode_to_gdf_kws is None:
