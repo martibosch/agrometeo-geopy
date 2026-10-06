@@ -1,4 +1,5 @@
 """Agrometeo."""
+
 import datetime
 import warnings
 from os import path
