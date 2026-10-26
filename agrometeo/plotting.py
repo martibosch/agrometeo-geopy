@@ -1,4 +1,5 @@
 """Plotting."""
+
 import logging
 
 import matplotlib.pyplot as plt
@@ -148,12 +149,10 @@ def plot_temperature_map(  # noqa: C901
         if attribution is None:
             attribution = _add_basemap_kws.pop("attribution", settings.PLOT_ATTRIBUTION)
         if cx is None:
-            logging.warning(
-                """
+            logging.warning("""
 The `add_basemap=True` option requires the contextily package. You can install it using
 conda or pip. See https://github.com/geopandas/contextily.
-"""
-            )
+""")
         else:
             # add basemap
             cx.add_basemap(
